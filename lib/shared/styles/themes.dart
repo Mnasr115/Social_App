@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hexcolor/hexcolor.dart';
-
 import '../components/constant.dart';
 
 
@@ -45,13 +44,14 @@ ThemeData darkTheme = ThemeData(
     ),
   ),
 );
+
 ThemeData lightTheme = ThemeData(
   fontFamily: 'Janna',
   textTheme: const TextTheme(
     bodyLarge: TextStyle(
       fontSize: 18.0,
       fontWeight: FontWeight.w600,
-      color: Colors.white,
+      color: Colors.black,
     ),
   ),
   primarySwatch: kPrimaryColor,

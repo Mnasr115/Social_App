@@ -44,4 +44,12 @@ class CacheHelper {
   static Future<bool> removeData({required String key}) async {
     return await sharedPreferences!.remove(key);
   }
+
+
+  static Future<bool> putData({
+    required String key,
+    required bool value,
+  }) async {
+    return await sharedPreferences!.setBool(key, value);
+  }
 }
