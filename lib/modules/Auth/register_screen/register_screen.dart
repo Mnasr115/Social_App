@@ -1,11 +1,12 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:social_app/layouts/social_layout.dart';
+import 'package:social_app/modules/Auth/login_screen/login_screen.dart';
 import 'package:social_app/modules/Auth/register_screen/cubit/register_cubit.dart';
 import 'package:social_app/shared/components/components.dart';
 import 'package:social_app/shared/components/constant.dart';
 import 'package:social_app/shared/network/local/Cache_helper.dart';
-
 
 class RegisterScreen extends StatelessWidget {
   const RegisterScreen({super.key});
@@ -21,27 +22,22 @@ class RegisterScreen extends StatelessWidget {
       create: (context) => RegisterCubit(),
       child: BlocConsumer<RegisterCubit, RegisterState>(
         listener: (context, state) {
-          /*if (state is RegisterSuccessState) {
-            if (state.loginModel.status!) {
-              CacheHelper.saveData(
-                key: 'token',
-                value: state.loginModel.data?.token,
-              ).then((value) {
-                token = state.loginModel.data?.token;
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const ShopLayout(),
-                  ),
-                );
-              });
-            } else {
-              showToast(
-                text: state.loginModel.message!,
-                state: ToastStates.ERROR,
+          if (state is CreateUserSuccessState) {
+            CacheHelper.saveData(
+              key: 'uId',
+              value: state.uId,
+            ).then((value) {
+              navigateAndFinish(
+                context,
+                const LoginScreen(),
               );
-            }
-          }*/
+            });
+          } else if (state is CreateUserErrorState) {
+            showToast(
+              text: state.errorMessage,
+              state: ToastStates.ERROR,
+            );
+          }
         },
         builder: (context, state) {
           return Scaffold(

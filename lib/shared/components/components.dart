@@ -57,26 +57,35 @@ class CustomTextFormField extends StatelessWidget {
 class CustomButton extends StatelessWidget {
   const CustomButton({
     super.key,
+    this.background = Colors.blue,
+    this.width = double.infinity,
     required this.text,
+    this.radius = 5.0,
     required this.onPressed,
   });
-
+  final double width;
+  final Color background;
   final String text;
-  final void Function() onPressed;
+  final double radius;
+  final VoidCallback onPressed;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: double.infinity,
-      height: 50,
+      width: width,
+      height: 50.0,
       decoration: BoxDecoration(
-        color: Colors.blue,
-        borderRadius: BorderRadius.circular(8),
+        color: background,
+        borderRadius: BorderRadius.circular(radius),
       ),
       child: MaterialButton(
         onPressed: onPressed,
         child: Text(
-          text,
+          text.toUpperCase(),
+          style: const TextStyle(
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+          ),
         ),
       ),
     );
@@ -116,5 +125,21 @@ Color chooseToastColor(ToastStates state) {
   return color;
 }
 
+void navigateTo(BuildContext context, Widget screen) {
+  Navigator.push(
+    context,
+    MaterialPageRoute(
+      builder: (context) {
+        return screen;
+      },
+    ),
+  );
+}
 
-
+void navigateAndFinish(BuildContext context, Widget screen) =>
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (BuildContext context) {
+        return screen;
+      }),
+    );

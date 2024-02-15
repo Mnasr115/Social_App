@@ -1,6 +1,7 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:social_app/layouts/social_layout.dart';
 import 'package:social_app/modules/Auth/login_screen/cubit/login_cubit.dart';
 import 'package:social_app/modules/Auth/register_screen/register_screen.dart';
 import 'package:social_app/shared/components/components.dart';
@@ -18,7 +19,13 @@ class LoginScreen extends StatelessWidget {
       create: (BuildContext context) => LoginCubit(),
       child: BlocConsumer<LoginCubit, LoginStates>(
         listener: (context, state) {
-          if (state is LoginErrorState) {
+          if(state is LoginSuccessState)
+            {
+              CacheHelper.saveData(key: 'uId', value: state.uId,).then((value){
+                navigateAndFinish(context, const SocialLayout());
+              });
+            }
+          else if (state is LoginErrorState) {
             showToast(
               text: state.errorMessage,
               state: ToastStates.ERROR,

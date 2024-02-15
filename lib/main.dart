@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:social_app/layouts/cubit/social_cubit.dart';
 import 'package:social_app/layouts/social_layout.dart';
 import 'package:social_app/modules/Auth/login_screen/login_screen.dart';
 import 'package:social_app/shared/components/constant.dart';
@@ -26,11 +27,10 @@ void main() async {
   Widget widget;
   bool? isDark = CacheHelper.getData(key: 'isDark');
   bool? onBoarding = CacheHelper.getData(key: 'onBoarding');
-  token = CacheHelper.getData(key: 'token');
- // print(token);
+  uId = CacheHelper.getData(key: 'uId');
 
   if (onBoarding != null) {
-    if (token != null) {
+    if (uId != null) {
       widget = const SocialLayout();
     } else {
       widget = const LoginScreen();
@@ -61,8 +61,10 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (context) =>
-          ModethemeCubit()
+          create: (context) => SocialCubit()..getUserData(),
+        ),
+        BlocProvider(
+          create: (context) => ModethemeCubit()
             ..changeMode(
               fromShared: isDark,
             ),
@@ -75,17 +77,13 @@ class MyApp extends StatelessWidget {
             debugShowCheckedModeBanner: false,
             theme: lightTheme,
             darkTheme: darkTheme,
-            themeMode: ModethemeCubit
-                .get(context)
-                .isDark
+            themeMode: ModethemeCubit.get(context).isDark
                 ? ThemeMode.dark
                 : ThemeMode.light,
-            home: const LoginScreen(),
+            home: startWidget,
           );
         },
       ),
     );
   }
 }
-
-

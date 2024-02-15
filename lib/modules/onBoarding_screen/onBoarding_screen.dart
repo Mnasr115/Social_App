@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import 'package:social_app/modules/Auth/login_screen/login_screen.dart';
+import 'package:social_app/shared/components/components.dart';
 
 import '../../shared/components/constant.dart';
 import '../../shared/network/local/Cache_helper.dart';
@@ -137,12 +139,12 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
   void submit() {
     CacheHelper.saveData(key: 'onBoarding', value: true).then((value) {
       if (value) {
-       /* Navigator.pushAndRemoveUntil(
+        Navigator.pushAndRemoveUntil(
             context,
             MaterialPageRoute(
               builder: (context) => const LoginScreen(),
             ),
-                (route) => false);*/
+                (route) => false);
       }
     });
   }

@@ -1,23 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:social_app/modules/Auth/login_screen/login_screen.dart';
 
 import '../network/local/Cache_helper.dart';
 
 const kPrimaryColor = Colors.blue;
 const kScaffoldBackGround = 'assets/images/background.png';
 
-String? token = '';
+String? uId = '';
 
 void signOut(context) {
   CacheHelper.removeData(
-    key: 'token',
+    key: 'uId',
   ).then((value) {
     if (value) {
-      /*Navigator.pushReplacement(
+      Navigator.pushReplacement(
         context,
         MaterialPageRoute(
           builder: (context) => const LoginScreen(),
         ),
-      );*/
+      );
     }
   });
 }
