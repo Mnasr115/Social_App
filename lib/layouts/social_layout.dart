@@ -14,71 +14,33 @@ class SocialLayout extends StatelessWidget {
     return BlocConsumer<SocialCubit, SocialStates>(
       listener: (context, state) {},
       builder: (context, state) {
+        var cubit = SocialCubit.get(context);
         return Scaffold(
           appBar: AppBar(
-            title: const Text('News Feed'),
+            title: Text(cubit.titles[cubit.currentIndex]),
+            actions: [
+              IconButton(
+                onPressed: () {},
+                icon: const Icon(
+                  Icons.notifications_outlined,
+                ),
+              ),
+              IconButton(
+                onPressed: () {},
+                icon: const Icon(
+                  Icons.search_outlined,
+                ),
+              ),
+            ],
           ),
-          body: ConditionalBuilder(
-            condition: true,//SocialCubit.get(context).userModel != null,
-            builder: (context) {
-              var model = SocialCubit.get(context);
-              return Column(
-                children: [
-                  //if (!model.userModel!.isEmailVerified!)
-                    Container(
-                      color: Colors.amber.withOpacity(0.6),
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 20,
-                        ),
-                        child: Row(
-                          children: [
-                            const Icon(
-                              Icons.info_outline,
-                            ),
-                            const SizedBox(
-                              width: 15,
-                            ),
-                            const Expanded(
-                              child: Text(
-                                'please verify your email',
-                                style: TextStyle(
-                                  fontSize: 18,
-                                ),
-                              ),
-                            ),
-                            const SizedBox(
-                              width: 15,
-                            ),
-                            TextButton(
-                              onPressed: () {
-                                FirebaseAuth.instance.currentUser
-                                    !.sendEmailVerification()
-                                    .then((value) {
-                                  showToast(
-                                    text: 'check your mail',
-                                    state: ToastStates.SUCCESS,
-                                  );
-                                }).catchError((error) {});
-                              },
-                              child: const Text(
-                                'SEND',
-                                style: TextStyle(
-                                  fontSize: 18,
-                                  color: Colors.blue,
-                                ),
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                    ),
-                ],
-              );
+          body: cubit.screens[cubit.currentIndex],
+          bottomNavigationBar: BottomNavigationBar(
+            currentIndex: cubit.currentIndex,
+            type: BottomNavigationBarType.fixed,
+            onTap: (int index) {
+              cubit.changeBottemNav(index);
             },
-            fallback: (context) => const Center(
-              child: CircularProgressIndicator(),
-            ),
+            items: cubit.items,
           ),
         );
       },

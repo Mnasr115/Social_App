@@ -42,6 +42,7 @@ ThemeData darkTheme = ThemeData(
       fontWeight: FontWeight.w600,
       color: Colors.white,
     ),
+
   ),
 );
 
