@@ -8,7 +8,7 @@ const kScaffoldBackGround = 'assets/images/shopapp-logo.png';
 
 String? uId = '';
 
-const kTestImage = 'assets/images/8359069.jpg';
+const kTestImage = 'assets/images/—Pngtree—business man avatar_8855195.png';
 
 void signOut(context) {
   CacheHelper.removeData(

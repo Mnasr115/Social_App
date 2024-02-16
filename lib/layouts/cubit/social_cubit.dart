@@ -48,35 +48,16 @@ class SocialCubit extends Cubit<SocialStates> {
     'Users',
     'Settings',
   ];
-  List<BottomNavigationBarItem> items = [
-    const BottomNavigationBarItem(
-      icon: Icon(
-        Icons.home_filled,
-      ),
-      label: 'Home',
-    ),
-    const BottomNavigationBarItem(
-      icon: Icon(
-        Icons.chat_bubble_outline,
-      ),
-      label: 'Chat',
-    ),
-    const BottomNavigationBarItem(
-      icon: Icon(
-        Icons.near_me_outlined,
-      ),
-      label: 'Users',
-    ),
-    const BottomNavigationBarItem(
-      icon: Icon(
-        Icons.settings,
-      ),
-      label: 'Setting',
-    ),
-  ];
+
 
   void changeBottemNav(int index) {
-    currentIndex = index;
-    emit(SocialChangeBottomNavBarState());
+
+    if(index==2) {
+      emit(SocialNewPostState());
+    }
+    else {
+      currentIndex = index;
+      emit(SocialChangeBottomNavBarState());
+    }
   }
 }
